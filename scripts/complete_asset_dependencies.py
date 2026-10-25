@@ -8,16 +8,26 @@ import socket
 import time
 import urllib.parse
 
-BUILTIN_MDL = {'OmniPBR.mdl', 'OmniSurface.mdl', 'OmniGlass.mdl', 'OmniOpacity.mdl'}
+# gltf/pbr.mdl is shipped by isaacsim-kernel 5.1 under kit/mdl/core/mdl.
+BUILTIN_MDL = {'OmniPBR.mdl', 'OmniSurface.mdl', 'OmniGlass.mdl', 'OmniOpacity.mdl', 'gltf/pbr.mdl'}
+
+
+def dependency_roots(inventory, core_manifest=None):
+    paths = set(inventory['paths'])
+    if core_manifest:
+        # The core download also contains unused Windows object variants. Traverse
+        # the actual anchor-selected objects, plus the shared robot/environment roots.
+        paths.update(row['path'] for row in core_manifest['files']
+                     if not row['path'].startswith('Objects/'))
+    return paths
 
 
 def complete(asset_root, inventory, core_manifest=None):
     from pxr import Sdf, UsdUtils
     import requests
     root = Path(asset_root).resolve()
-    paths = set(inventory['paths'])
-    if core_manifest:
-        paths.update(row['path'] for row in core_manifest['files'])
+    paths = dependency_roots(inventory, core_manifest)
+    core_paths = {row['path'] for row in core_manifest['files']} if core_manifest else set()
     original = socket.getaddrinfo
     def ipv4(host, port, family=0, type=0, proto=0, flags=0):
         return original(host, port, socket.AF_INET if family == socket.AF_UNSPEC else family, type, proto, flags)
@@ -76,7 +86,7 @@ def complete(asset_root, inventory, core_manifest=None):
         if len(visited) > 100000:
             raise ValueError('Unexpectedly large USD dependency graph')
     files = {}
-    for rel in sorted(visited):
+    for rel in sorted(visited | core_paths):
         path = root / rel
         h = hashlib.sha256()
         with path.open('rb') as f:
@@ -85,7 +95,7 @@ def complete(asset_root, inventory, core_manifest=None):
         files[rel] = dict(bytes=path.stat().st_size, sha256=h.hexdigest())
     return dict(files=files, usd_transitive_check='PASSED' if not unresolved else 'FAILED',
         unresolved=unresolved, runtime_builtin_mdl=sorted(builtin), epoch=time.time(),
-        root_assets=inventory['paths'])
+        root_assets=inventory['paths'], dependency_roots=sorted(paths))
 
 
 def main():

@@ -10,12 +10,19 @@
 在relay准备离线wheelhouse和IsaacLab源码，再上传评测服务器；`setup_environment.py` 不联网安装：
 
 ```bash
+# 仅在下载中转机执行。传入固定v2.3.2的IsaacLab源码。
+python3.11 scripts/prepare_simulation_wheels.py \
+  --wheelhouse workspaces/wheelhouse --isaaclab workspaces/IsaacLab
+
+# 以下在评测机执行，wheelhouse与源码已从中转机传入。
 python3.11 scripts/setup_environment.py simulation \
   --wheelhouse workspaces/wheelhouse --isaaclab workspaces/IsaacLab
 
 python3.11 scripts/setup_environment.py inference \
   --reuse-site-packages /path/to/tested/inference/site-packages
 ```
+
+离线准备会将flatdict等源码依赖预先构建为wheel，并使用仍提供pkg_resources的构建依赖，避免评测机离线安装时重新联网或构建失败。依赖清单及SHA256保存在wheelhouse中。
 
 ## 工作区与模型
 

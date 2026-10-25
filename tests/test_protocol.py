@@ -103,6 +103,17 @@ class ProtocolTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             list(module.asset_paths({'uri': 'dex2bench_dataset/../../secret'}))
 
+    def test_dependency_roots_exclude_unused_object_variants(self):
+        path = Path(__file__).resolve().parents[1] / 'scripts/complete_asset_dependencies.py'
+        spec = importlib.util.spec_from_file_location('closure', path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        roots = module.dependency_roots({'paths': ['Objects/ball/usd_sdf_linux/base.usd']},
+            {'files': [{'path': 'Objects/ball/usd/base.usd'},
+                       {'path': 'Robots_p/arm/usd/base.usd'}]})
+        self.assertEqual(roots, {'Objects/ball/usd_sdf_linux/base.usd', 'Robots_p/arm/usd/base.usd'})
+        self.assertIn('gltf/pbr.mdl', module.BUILTIN_MDL)
+
 
 if __name__ == '__main__':
     unittest.main()
