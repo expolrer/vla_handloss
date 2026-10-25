@@ -1,0 +1,12 @@
+# Run on the relay. Supply credentials via SSH agent or getpass, never YAML.
+source_host: training-server
+source_root: /path/to/committed/inference_exports
+destination_host: evaluation-server
+destination_root: /path/to/vla_handloss/checkpoints
+source_workers: 32
+destination_workers: 8
+logical_chunks_per_model: 1024
+retry_backoff_seconds: 60
+verify_received_chunks_after_restart: true
+final_sha256_required: true
+cleanup_relay_only_after_verified_receipt: true

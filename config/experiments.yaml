@@ -1,0 +1,8 @@
+B0_unified: {hand_branch: false, hand_loss_weight: 1.0}
+B1_hand_branch: {hand_branch: true, hand_loss_weight: 1.0, branch_scope: hand, hand_branch_width: 256}
+B2_hand_loss: {hand_branch: false, hand_loss_weight: 2.0}
+B3_branch_loss: {hand_branch: true, hand_loss_weight: 2.0, branch_scope: hand, hand_branch_width: 256}
+C0_all_branch: {hand_branch: true, hand_loss_weight: 1.0, branch_scope: all, hand_branch_width: 253, name_suffix: _s42}
+C1_group_balanced: {hand_branch: false, hand_loss_weight: group_balanced, name_suffix: _s42}
+C2_lambda_half: {hand_branch: false, hand_loss_weight: 0.5, name_suffix: _s42}
+C3_lambda_four: {hand_branch: false, hand_loss_weight: 4.0, name_suffix: _s42}

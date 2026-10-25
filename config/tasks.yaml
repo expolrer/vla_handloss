@@ -1,0 +1,15 @@
+27_ball_box_loading:
+  name: Ball Box Loading
+  robot_key: multi_ur5_wuji_with_flange
+  action_dim: 52
+  arm_dim: 12
+  hand_dim: 40
+  prompt: Place mini soccer ball into box, place tennis ball into box, place golf ball into box, place ping-pong ball into box.
+73_jigsaw_puzzle_assembly:
+  name: Jigsaw Puzzle Assembly
+  robot_key: multi_iiwa7_with_sharpa
+  action_dim: 54
+  arm_dim: 14
+  hand_dim: 40
+  raw_state_dim: 58
+  prompt: Right hand and left hand in turn assemble the green, red, blue, yellow puzzle pieces onto the fixed white puzzle piece in the center of the table, forming a rectangle.

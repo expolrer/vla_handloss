@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vla-handloss"
+version = "0.1.0"
+description = "Recorded, resumable dexterous-hand VLA ablations and Bench2Dex evaluation"
+requires-python = ">=3.11"
+dependencies = ["PyYAML>=6"]
+
+[project.scripts]
+vla-handloss = "hand_pipeline.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["hand_pipeline*"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"

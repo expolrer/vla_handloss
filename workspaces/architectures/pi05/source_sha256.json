@@ -1,0 +1,12 @@
+{
+  "policy/pi05/LICENSE": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1",
+  "policy/pi05/scripts/train.py": "cbdcf3f66ea4d7b1f2cd7638cb9a5a01bc961c4e9b88c755bc737132bde45c07",
+  "policy/pi05/src/openpi/models/pi0_config.py": "3e403ccc711b4ac3f3f42686b4eb90d818697ff2fba87384c77af8dfe00784ca",
+  "policy/pi05/src/openpi/models/pi0.py": "dc3362b7425d9ec0742941ff38dc769dee45db9b989db5449865c895e1f84c3d",
+  "policy/pi05/src/openpi/training/checkpoints.py": "6b76a811671433c05e19018e2b502f4fe1e11251c59d2b8c79141d149d3bb533",
+  "policy/pi05/src/openpi/training/data_loader.py": "abba59cf4ead0bbf22370958c5ac1032bd493e249230f898b6e9dc1c1c453b2e",
+  "policy/pi05/src/openpi/training/dex2bench_dataset.py": "93fd36e49444e0f67fadc4eef82466c49dee44746cf915ffa541c0b33aaed49f",
+  "policy/pi05/src/openpi/training/weight_loaders.py": "8eb6b19114e25d5d978ef0383a3afc46c870e2ca8d4c3a6a63cfbeda8e28caa1",
+  "robots/active_dof_maps.yml": "45b107c1a46362800cf6dbcb50d7e78801d41575fea1e36c6f5c84bc19d8658d",
+  "robots/active_dof_utils.py": "687ddce342cd64979c99a071ee2937ce3bc6d8fa3ef4a82abe7a51f6c45f1e5a"
+}

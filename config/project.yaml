@@ -1,0 +1,45 @@
+upstream:
+  bench2dex_url: https://github.com/Bench2Dex/Bench2Dex.git
+  bench2dex_revision: cf83e869e722c67f032d7db17ad0e628e248eee4
+  isaaclab_url: https://github.com/isaac-sim/IsaacLab.git
+  isaaclab_revision: v2.3.2
+  isaacsim_version: 5.1.0
+paths:
+  runtime: workspaces/runtime
+  bench2dex: workspaces/Bench2Dex
+  inference_python: workspaces/envs/inference/bin/python
+  simulation_python: workspaces/envs/simulation/bin/python
+  models: checkpoints
+  records: records
+  results: results
+  state: state
+  anchors: workspaces/runtime/common/anchors
+evaluation:
+  profiles: [none]
+  generalization_split: unseen
+  episodes: 50
+  episode_steps: 800
+  warmup_steps: 60
+  base_seed: 100000000
+  action_horizon: 20
+  checkpoint_step: 10000
+  record_all: true
+  port_base: 19000
+  ready_timeout_seconds: 1200
+  episode_timeout_seconds: 3600
+  idle_poll_seconds: 30
+  gpu_memory_idle_mb: 300
+  xla_memory_fraction: 0.45
+  require_smoke: true
+  require_anchor_assets: true
+training:
+  seed: 42
+  steps: 10000
+  batch_size: 32
+  fsdp_devices: 4
+  demonstration_count: 50
+  action_horizon: 20
+  max_token_len: 384
+  log_interval: 10
+  save_interval: 250
+  modalities: [rgb, joint, text]

@@ -1,0 +1,18 @@
+VLA Hand Loss
+
+The project layout is inspired by expolrer/depth-process-model.
+Bench2Dex evaluation integration targets https://github.com/Bench2Dex/Bench2Dex
+at commit cf83e869e722c67f032d7db17ad0e628e248eee4.
+
+The OpenPI-derived source under workspaces/architectures/pi05/overlay
+retains its original copyright notices and Apache License 2.0.
+Original upstream: https://github.com/Physical-Intelligence/openpi
+The trained hand-branch, weighted-loss and checkpoint compatibility additions
+are captured from the user's Bench2Dex training workspace.
+
+Robot mapping files are redistributed as the compatibility overlay used by
+these checkpoints. They do not contain robot assets, datasets or weights.
+Keep the upstream Bench2Dex license with any full upstream checkout.
+
+No model checkpoints, demonstration data, access credentials or complete
+Python environments are part of this repository.
