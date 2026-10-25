@@ -114,6 +114,22 @@ class ProtocolTests(unittest.TestCase):
         self.assertEqual(roots, {'Objects/ball/usd_sdf_linux/base.usd', 'Robots_p/arm/usd/base.usd'})
         self.assertIn('gltf/pbr.mdl', module.BUILTIN_MDL)
 
+    def test_offline_wheels_are_verified_before_installation(self):
+        path = Path(__file__).resolve().parents[1] / 'scripts/setup_environment.py'
+        spec = importlib.util.spec_from_file_location('offline_setup', path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            wheel = root / 'test.whl'
+            wheel.write_bytes(b'correct')
+            (root / 'wheel_manifest.json').write_text(json.dumps({'files': {'test.whl':
+                {'bytes': 7, 'sha256': hashlib.sha256(b'correct').hexdigest()}}}))
+            self.assertEqual(len(module.verify_wheels(root)), 64)
+            wheel.write_bytes(b'corrupt')
+            with self.assertRaises(ValueError):
+                module.verify_wheels(root)
+
 
 if __name__ == '__main__':
     unittest.main()
